@@ -20,6 +20,7 @@ $api->version('v1',["namespace"=>"App\\Http\\Controllers"], function (Dingo\Api\
     $api->get('bucketlists/{id}','BucketListController@show');
     $api->post('bucketlists','BucketListController@store');
     $api->put('bucketlists/{id}','BucketListController@update');
+    $api->delete('bucketlists/{id}','BucketListController@destroy');
 
 });
 

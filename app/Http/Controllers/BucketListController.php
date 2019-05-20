@@ -110,6 +110,14 @@ class BucketListController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bucketlist = $this->bucketlist->find($id);
+        if(!$bucketlist)
+            return $this->error("The bucketlist you are trying to  delete does not exist");
+
+        if($bucketlist->delete())
+            return $this->success(["message"=>"bucketlist deleted successfully"]);
+
+        return $this->error("Unable to delete bucketlist");
+
     }
 }
