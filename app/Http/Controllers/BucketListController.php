@@ -39,7 +39,8 @@ class BucketListController extends Controller
     public function index()
     {
 
-        return $this->transform($this->bucketlist,$this->bucketlistTransformer);
+        $bucketlists = $this->bucketlist->paginate();
+        return $this->transformWithPages($bucketlists,$this->bucketlistTransformer);
     }
 
     /**
@@ -53,9 +54,9 @@ class BucketListController extends Controller
 
         $data['name'] = $request->name;
         $data["user_id"] = 1;
-       $bucketlist = Bucketlist::create($data);
+        $bucketlist = Bucketlist::create($data);
        if($bucketlist)
-           return $this->transform($bucketlist,$this->bucketlistTransformer);
+           return $this->transform($bucketlist,$this->bucketlistTransformer,201);
     }
 
     /**

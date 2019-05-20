@@ -10,10 +10,11 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use League\Fractal\Serializer\ArraySerializer;
 use League\Fractal\Serializer\JsonApiSerializer;
 use League\Fractal\TransformerAbstract;
 use Spatie\Fractal\Fractal;
-use Spatie\Fractalistic\ArraySerializer;
+
 
 class Controller extends BaseController
 {
@@ -26,15 +27,19 @@ class Controller extends BaseController
         return $this->success($data,$status);
     }
 
-    protected function transformWithPages(Paginator $paginator, TransformerAbstract $transformer){
+    protected function transformWithPages( $paginator, TransformerAbstract $transformer){
 
-        $items = $paginator->getCollection();
+        $collection = $paginator->getCollection();
 
-        Fractal::create()
-            ->collection($items, $transformer)
-            ->serializeWith(new JsonApiSerializer())
+       $transformItems = \fractal()
+            ->collection($collection)
+           ->transformWith($transformer)
+            ->serializeWith(new ArraySerializer())
+            ->withResourceName('items')
             ->paginateWith(new IlluminatePaginatorAdapter($paginator))
             ->toArray();
+
+       return $this->success($transformItems);
     }
 
     protected function success($data,$status=200){
