@@ -6,6 +6,7 @@ use App\Http\Requests\BucketlistRequest;
 use App\Http\Transformers\BucketlistTransformer;
 use App\Models\Bucketlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BucketListController extends Controller
 {
@@ -83,7 +84,22 @@ class BucketListController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $bucketlist = $this->bucketlist->find($id);
+
+        if(!$bucketlist)
+            return $this->error("The bucketlist you are trying to update does not exist",404);
+
+        Validator::make($request->all(),[
+            "name"=>"required"
+        ])->validate();
+
+
+        $bucketlist->name = $request->name;
+        if($bucketlist->save())
+             return $this->transform($bucketlist,$this->bucketlistTransformer);
+
+        return $this->error("Unable to update bucketlist");
+
     }
 
     /**
