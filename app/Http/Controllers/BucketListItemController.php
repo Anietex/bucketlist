@@ -76,7 +76,15 @@ class BucketListItemController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $item = BucketListItem::where('bucket_list_id',request()->bucket_list_id)
+        ->where('id',$id)->first();
+
+        if(!$item)
+            $this->error('Bucket list item does not exist',404);
+
+
+        return $this->transform($item,$this->itemTransformer);
     }
 
     /**
