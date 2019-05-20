@@ -13,8 +13,8 @@ class CreateBucketlistsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bucketlists', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('bucket_lists', function (Blueprint $table) {
+            $table->increments('id');
             $table->string("name");
             $table->unsignedInteger("user_id");
             $table->timestamps();
@@ -28,6 +28,6 @@ class CreateBucketlistsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bucketlists');
+        Schema::dropIfExists('bucket_lists');
     }
 }

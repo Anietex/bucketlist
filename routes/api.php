@@ -1,5 +1,6 @@
 <?php
 
+use Dingo\Api\Routing\Router;
 use Illuminate\Http\Request;
 
 /*
@@ -16,11 +17,18 @@ use Illuminate\Http\Request;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1',["namespace"=>"App\\Http\\Controllers"], function (Dingo\Api\Routing\Router $api) {
-    $api->get('bucketlists','BucketListController@index');
-    $api->get('bucketlists/{id}','BucketListController@show');
-    $api->post('bucketlists','BucketListController@store');
-    $api->put('bucketlists/{id}','BucketListController@update');
-    $api->delete('bucketlists/{id}','BucketListController@destroy');
+    $api->group(['prefix'=>'bucketlists'],function (Dingo\Api\Routing\Router $api){
+        $api->get('/','BucketListController@index');
+        $api->get('/{id}','BucketListController@show');
+        $api->post('/','BucketListController@store');
+        $api->put('/{id}','BucketListController@update');
+        $api->delete('/{id}','BucketListController@destroy');
+
+
+        $api->post('/{bucket_list_id}/items','BucketListItemController@store');
+    });
+
+
 
 });
 

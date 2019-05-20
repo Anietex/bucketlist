@@ -5,13 +5,13 @@ namespace App\Http\Transformers;
 
 
 
-use App\Models\Bucketlist;
+use App\Models\BucketList;
 use League\Fractal\TransformerAbstract;
 
 class BucketlistTransformer extends TransformerAbstract
 {
 
-    public function transform(Bucketlist $bucketlist){
+    public function transform(BucketList $bucketlist){
         return [
            "id"=>$bucketlist->id,
             "name"=>$bucketlist->name,
