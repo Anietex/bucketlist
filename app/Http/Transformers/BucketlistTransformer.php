@@ -13,8 +13,11 @@ class BucketlistTransformer extends TransformerAbstract
 
     public function transform(Bucketlist $bucketlist){
         return [
-           "id"=>"12345",
-            "name"=>"Bucketlist1"
+           "id"=>$bucketlist->id,
+            "name"=>$bucketlist->name,
+            "date_created"=>$bucketlist->created_at,
+            "date_modified"=>$bucketlist->updated_at,
+            "created_by"=>$bucketlist->user_id
         ];
     }
 
