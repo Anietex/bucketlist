@@ -27,6 +27,7 @@ $api->version('v1',["namespace"=>"App\\Http\\Controllers"], function (Dingo\Api\
         $api->get('/{bucket_list_id}/items','BucketListItemController@index');
         $api->get('/{bucket_list_id}/items/{id}','BucketListItemController@show');
         $api->put('/{bucket_list_id}/items/{id}','BucketListItemController@update');
+        $api->delete('/{bucket_list_id}/items/{id}','BucketListItemController@destroy');
 
     });
 

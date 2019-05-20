@@ -103,7 +103,8 @@ class BucketListItemController extends Controller
             'done'=>'boolean'
         ])->validate();
 
-        $item = BucketListItem::find($id);
+        $item = BucketListItem::where('bucket_list_id',request()->bucket_list_id)
+            ->where('id',$id)->first();
 
         if(!$item)
             return $this->error("Bucket list item not found",404);
@@ -128,7 +129,16 @@ class BucketListItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = BucketListItem::where('bucket_list_id',request()->bucket_list_id)
+            ->where('id',$id)->first();
+
+        if(!$item)
+            return $this->error("Bucket list item does not exist",404);
+
+        if($item->delete())
+            return $this->success(["message"=>"Item deleted successfully"]);
+
+        return $this->error("Unable to delete item");
     }
 
     public function isValidBucketLisId(){
