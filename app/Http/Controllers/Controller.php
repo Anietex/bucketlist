@@ -20,10 +20,10 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 
-    protected function transform(Model $model, TransformerAbstract $transformer){
+    protected function transform(Model $model, TransformerAbstract $transformer,$status=200){
         $data =  fractal($model,$transformer)->serializeWith(new ArraySerializer());
 
-        return $this->success($data);
+        return $this->success($data,$status);
     }
 
     protected function transformWithPages(Paginator $paginator, TransformerAbstract $transformer){

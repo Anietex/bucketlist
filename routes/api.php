@@ -17,7 +17,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1',["namespace"=>"App\\Http\\Controllers"], function (Dingo\Api\Routing\Router $api) {
     $api->get('bucketlists','BucketListController@index');
-    $api->patch('bucketlists','BucketListController@store');
+    $api->post('bucketlists','BucketListController@store');
 });
 
 

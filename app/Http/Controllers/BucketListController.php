@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BucketlistRequest;
 use App\Http\Transformers\BucketlistTransformer;
 use App\Models\Bucketlist;
 use Illuminate\Http\Request;
@@ -47,9 +48,14 @@ class BucketListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BucketlistRequest $request)
     {
-        dump($request->name);
+
+        $data['name'] = $request->name;
+        $data["user_id"] = 1;
+       $bucketlist = Bucketlist::create($data);
+       if($bucketlist)
+           return $this->transform($bucketlist,$this->bucketlistTransformer);
     }
 
     /**
