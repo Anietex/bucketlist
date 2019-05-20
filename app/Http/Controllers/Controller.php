@@ -18,8 +18,8 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 
-    protected function transform(Model $model, TransformerAbstract $transformer,$code=200){
-        $data =  fractal($model,$transformer)->serializeWith(new ArraySerializer());
+    protected function transform( $model, TransformerAbstract $transformer,$code=200){
+        $data =  fractal($model,$transformer)->serializeWith(new \Spatie\Fractalistic\ArraySerializer());
 
         return $this->success($data,$code);
     }

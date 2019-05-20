@@ -33,7 +33,12 @@ class BucketListItemController extends Controller
      */
     public function index()
     {
+        if(!$this->isValidBucketLisId())
+            return $this->error("Bucket list does not exists",404);
 
+        $bucketList = $this->bucketListItem->where('bucket_list_id', request()->bucket_list_id)->get();
+
+        return $this->transform($bucketList,$this->itemTransformer);
 
     }
 
@@ -48,8 +53,8 @@ class BucketListItemController extends Controller
 
 
 
-        if(!BucketList::find($request->bucket_list_id))
-             return $this->error("Bucket list does not exists");
+        if(!$this->isValidBucketLisId())
+             return $this->error("Bucket list does not exists",404);
 
         $data["name"] = $request->name;
         $data["bucket_list_id"] = $request->bucket_list_id;
@@ -95,5 +100,9 @@ class BucketListItemController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function isValidBucketLisId(){
+       return !!BucketList::find(request()->bucket_list_id);
     }
 }
