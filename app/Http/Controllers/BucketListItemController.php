@@ -6,8 +6,10 @@ use App\Http\Requests\BucketListItemRequest;
 use App\Http\Transformers\BucketListItemTransformer;
 use App\Models\BucketList;
 use App\Models\BucketListItem;
-use Dotenv\Validator;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class BucketListItemController extends Controller
 {
@@ -96,7 +98,26 @@ class BucketListItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        Validator::make($request->all(),[
+            'done'=>'boolean'
+        ])->validate();
+
+        $item = BucketListItem::find($id);
+
+        if(!$item)
+            return $this->error("Bucket list item not found",404);
+
+
+        $item->name = Input::get('name',$item->name);
+        $item->done = Input::get('done',$item->done);
+
+        if($item->save())
+            return $this->transform($item->refresh(),$this->itemTransformer);
+
+        return $this->error("Unable to update item");
+
+
     }
 
     /**

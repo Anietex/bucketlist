@@ -23,11 +23,10 @@ $api->version('v1',["namespace"=>"App\\Http\\Controllers"], function (Dingo\Api\
         $api->post('/','BucketListController@store');
         $api->put('/{id}','BucketListController@update');
         $api->delete('/{id}','BucketListController@destroy');
-
-
         $api->post('/{bucket_list_id}/items','BucketListItemController@store');
         $api->get('/{bucket_list_id}/items','BucketListItemController@index');
         $api->get('/{bucket_list_id}/items/{id}','BucketListItemController@show');
+        $api->put('/{bucket_list_id}/items/{id}','BucketListItemController@update');
 
     });
 

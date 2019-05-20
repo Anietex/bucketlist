@@ -25,6 +25,7 @@ class BucketListItemRequest extends FormRequest
     {
         return [
             "name"  =>    "required",
+            "done"  =>  "boolean"
 
         ];
     }
