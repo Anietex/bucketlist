@@ -67,7 +67,11 @@ class BucketListController extends Controller
      */
     public function show($id)
     {
-        //
+        $bucketlist = $this->bucketlist->find($id);
+        if(!$bucketlist)
+            return $this->error("Bucketlist not found", 404);
+
+        return $this->transform($bucketlist,$this->bucketlistTransformer);
     }
 
     /**

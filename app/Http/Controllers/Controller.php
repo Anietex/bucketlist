@@ -4,16 +4,13 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Serializer\ArraySerializer;
-use League\Fractal\Serializer\JsonApiSerializer;
 use League\Fractal\TransformerAbstract;
-use Spatie\Fractal\Fractal;
 
 
 class Controller extends BaseController
@@ -21,10 +18,10 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 
-    protected function transform(Model $model, TransformerAbstract $transformer,$status=200){
+    protected function transform(Model $model, TransformerAbstract $transformer,$code=200){
         $data =  fractal($model,$transformer)->serializeWith(new ArraySerializer());
 
-        return $this->success($data,$status);
+        return $this->success($data,$code);
     }
 
     protected function transformWithPages( $paginator, TransformerAbstract $transformer){
@@ -42,12 +39,12 @@ class Controller extends BaseController
        return $this->success($transformItems);
     }
 
-    protected function success($data,$status=200){
-        return response()->json(["status"=>"success","data"=>$data],$status);
+    protected function success($data,$code=200){
+        return response()->json(["status"=>"success","data"=>$data],$code);
     }
 
-    protected function error($message,$status=500){
-
+    protected function error($message,$code=500){
+        return response()->json(["status"=>"error","message"=>$message],$code);
     }
 
 
