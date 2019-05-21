@@ -9273,3 +9273,7 @@ input[type=range]::-ms-thumb {
   }
 }
 
+.login-form {
+  margin-top: 40px;
+}
+
