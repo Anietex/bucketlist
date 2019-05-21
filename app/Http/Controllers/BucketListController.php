@@ -54,7 +54,7 @@ class BucketListController extends Controller
     {
 
         $data['name'] = $request->name;
-        $data["user_id"] = 1;
+        $data["user_id"] = auth()->user()->id;
         $bucketList = BucketList::create($data);
        if($bucketList)
            return $this->transform($bucketList,$this->bucketListTransformer,201);

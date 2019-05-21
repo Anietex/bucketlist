@@ -17,19 +17,29 @@ use Illuminate\Http\Request;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1',["namespace"=>"App\\Http\\Controllers"], function (Dingo\Api\Routing\Router $api) {
-    $api->group(['prefix'=>'bucketlists'],function (Dingo\Api\Routing\Router $api){
-        $api->get('/','BucketListController@index');
-        $api->get('/{id}','BucketListController@show');
-        $api->post('/','BucketListController@store');
-        $api->put('/{id}','BucketListController@update');
-        $api->delete('/{id}','BucketListController@destroy');
-        $api->post('/{bucket_list_id}/items','BucketListItemController@store');
-        $api->get('/{bucket_list_id}/items','BucketListItemController@index');
-        $api->get('/{bucket_list_id}/items/{id}','BucketListItemController@show');
-        $api->put('/{bucket_list_id}/items/{id}','BucketListItemController@update');
-        $api->delete('/{bucket_list_id}/items/{id}','BucketListItemController@destroy');
 
-    });
+   $api->group(['middleware'=>'auth:api'],function () use ($api){
+       $api->group(['prefix'=>'bucketlists'],function (Dingo\Api\Routing\Router $api){
+           $api->get('/','BucketListController@index');
+           $api->get('/{id}','BucketListController@show');
+           $api->post('/','BucketListController@store');
+           $api->put('/{id}','BucketListController@update');
+           $api->delete('/{id}','BucketListController@destroy');
+           $api->post('/{bucket_list_id}/items','BucketListItemController@store');
+           $api->get('/{bucket_list_id}/items','BucketListItemController@index');
+           $api->get('/{bucket_list_id}/items/{id}','BucketListItemController@show');
+           $api->put('/{bucket_list_id}/items/{id}','BucketListItemController@update');
+           $api->delete('/{bucket_list_id}/items/{id}','BucketListItemController@destroy');
+       });
+
+       $api->get('logout','AuthController@logout');
+
+
+   });
+
+
+
+    $api->post('login','AuthController@login');
 
 
 
