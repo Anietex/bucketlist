@@ -1,0 +1,59 @@
+import React, {Component} from 'react';
+
+
+class BucketListItemsTable extends Component{
+
+    constructor(props){
+        super(props)
+        this.markAsDone= this.markAsDone.bind(this)
+    }
+
+    markAsDone(id){
+        this.props.markAsDone(id)
+    }
+
+    render() {
+        return (
+            <div className='bucket-lists'>
+                <div className='card'>
+                    <div className='card-content'>
+                        <span className='card-title'>Bucket Lists Items</span>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width='10%'>Done</th>
+                                    <th width='70%'>Name</th>
+                                    <th width='20%'>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {this.props.bucketListItems.map((item,index)=>(
+                                <tr key={item.id}>
+                                    <td>
+                                        <p>
+                                            <label>
+                                                <input onChange={(e)=>{this.markAsDone(item.id)}}  type='checkbox' className='filled-in'/>
+                                                <span></span>
+                                            </label>
+                                        </p>
+                                    </td>
+                                    <td className={item.done?'strike':''}>{item.name}</td>
+                                    <td>
+                                        <button className='btn btn-small green accent-3'>Edit</button>
+                                        <button className='btn btn-small red accent-3'>Delete</button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+
+export default BucketListItemsTable;

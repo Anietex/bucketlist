@@ -4,13 +4,15 @@ import Header from "./components/Header";
 
 import Home from './pages/Home'
 import BucketList from "./pages/BucketList";
+import BucketListItems from "./pages/BucketListItem";
 
 let AppRouter = () =>(
     <Router>
         <Header/>
         <Switch>
             <Route path='/' exact component={Home}/>
-            <Route path='/bucket-list' component={BucketList}/>
+            {/*<Route  path='/bucketlist' component={BucketList}/>*/}
+            <Route path='/bucketlist/:id' component={BucketListItems}/>
         </Switch>
     </Router>
 );

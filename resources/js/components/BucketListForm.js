@@ -19,7 +19,6 @@ class BucketListForm extends Component {
 
     addBucketList(event){
         event.preventDefault();
-
         this.
         props
             .addBucketList({name:this.state.name})

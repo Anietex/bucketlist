@@ -77994,6 +77994,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Header */ "./resources/js/components/Header.js");
 /* harmony import */ var _pages_Home__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Home */ "./resources/js/pages/Home.js");
 /* harmony import */ var _pages_BucketList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/BucketList */ "./resources/js/pages/BucketList.js");
+/* harmony import */ var _pages_BucketListItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/BucketListItem */ "./resources/js/pages/BucketListItem.js");
+
 
 
 
@@ -78006,8 +78008,8 @@ var AppRouter = function AppRouter() {
     exact: true,
     component: _pages_Home__WEBPACK_IMPORTED_MODULE_3__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "/bucket-list",
-    component: _pages_BucketList__WEBPACK_IMPORTED_MODULE_4__["default"]
+    path: "/bucketlist/:id",
+    component: _pages_BucketListItem__WEBPACK_IMPORTED_MODULE_5__["default"]
   })));
 };
 
@@ -78223,6 +78225,214 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (BucketListForm);
+
+/***/ }),
+
+/***/ "./resources/js/components/BucketListItemForm.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/BucketListItemForm.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var BucketListItemForm =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(BucketListItemForm, _Component);
+
+  function BucketListItemForm(props) {
+    var _this;
+
+    _classCallCheck(this, BucketListItemForm);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BucketListItemForm).call(this, props));
+    _this.state = {
+      name: ''
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.addBucketListItem = _this.addBucketListItem.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(BucketListItemForm, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      this.setState(_defineProperty({}, event.target.id, event.target.value));
+    }
+  }, {
+    key: "addBucketListItem",
+    value: function addBucketListItem(event) {
+      var _this2 = this;
+
+      event.preventDefault();
+      this.props.addBucketListItem({
+        name: this.state.name,
+        done: false
+      }).then(function () {
+        _this2.setState({
+          name: ''
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "card-title"
+      }, "Add new  to   ", this.props.bucketList.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.addBucketListItem
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col l10 s12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-field"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        id: "name",
+        value: this.state.name,
+        onChange: this.handleChange
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "name"
+      }, "Name"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col l2 s12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: " btn"
+      }, "Create"))))));
+    }
+  }]);
+
+  return BucketListItemForm;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (BucketListItemForm);
+
+/***/ }),
+
+/***/ "./resources/js/components/BucketListItemsTable.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/BucketListItemsTable.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var BucketListItemsTable =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(BucketListItemsTable, _Component);
+
+  function BucketListItemsTable(props) {
+    var _this;
+
+    _classCallCheck(this, BucketListItemsTable);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BucketListItemsTable).call(this, props));
+    _this.markAsDone = _this.markAsDone.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(BucketListItemsTable, [{
+    key: "markAsDone",
+    value: function markAsDone(id) {
+      this.props.markAsDone(id);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "bucket-lists"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "card-title"
+      }, "Bucket Lists Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "10%"
+      }, "Done"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "70%"
+      }, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        width: "20%"
+      }, "Action"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.props.bucketListItems.map(function (item, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: item.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          onChange: function onChange(e) {
+            _this2.markAsDone(item.id);
+          },
+          type: "checkbox",
+          className: "filled-in"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: item.done ? 'strike' : ''
+        }, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn btn-small green accent-3"
+        }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn btn-small red accent-3"
+        }, "Delete")));
+      }))))));
+    }
+  }]);
+
+  return BucketListItemsTable;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (BucketListItemsTable);
 
 /***/ }),
 
@@ -78577,6 +78787,121 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (BucketList);
+
+/***/ }),
+
+/***/ "./resources/js/pages/BucketListItem.js":
+/*!**********************************************!*\
+  !*** ./resources/js/pages/BucketListItem.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_BucketListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/BucketListForm */ "./resources/js/components/BucketListForm.js");
+/* harmony import */ var _components_BucketListTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/BucketListTable */ "./resources/js/components/BucketListTable.js");
+/* harmony import */ var _components_BucketListItemsTable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/BucketListItemsTable */ "./resources/js/components/BucketListItemsTable.js");
+/* harmony import */ var _components_BucketListItemForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/BucketListItemForm */ "./resources/js/components/BucketListItemForm.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+var BucketListItems =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(BucketListItems, _Component);
+
+  function BucketListItems(props) {
+    var _this;
+
+    _classCallCheck(this, BucketListItems);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BucketListItems).call(this, props));
+    _this.state = {
+      bucketListsItems: [],
+      bucketList: {
+        name: 'Bucket list one'
+      }
+    };
+    _this.addBucketListItem = _this.addBucketListItem.bind(_assertThisInitialized(_this));
+    _this.markAsDone = _this.markAsDone.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(BucketListItems, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BucketListItemForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        bucketList: this.state.bucketList,
+        addBucketListItem: this.addBucketListItem
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BucketListItemsTable__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        bucketListItems: this.state.bucketListsItems,
+        markAsDone: this.markAsDone
+      })));
+    }
+  }, {
+    key: "markAsDone",
+    value: function markAsDone(id) {
+      var items = this.state.bucketListsItems;
+      var index = this.state.bucketListsItems.findIndex(function (item) {
+        return item.id == id;
+      });
+      items[index].done = !items[index].done;
+      this.setState({
+        bucketListItems: items
+      });
+    }
+  }, {
+    key: "addBucketListItem",
+    value: function addBucketListItem(bucketListItem) {
+      var _this2 = this;
+
+      bucketListItem.id = Math.round(1 + Math.random() * 1000);
+      return new Promise(function (resolve, reject) {
+        _this2.setState(function (prevState) {
+          return {
+            bucketListsItems: prevState.bucketListsItems.concat(bucketListItem)
+          };
+        }, function () {
+          resolve();
+        });
+      });
+    }
+  }]);
+
+  return BucketListItems;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (BucketListItems);
 
 /***/ }),
 
