@@ -33,10 +33,6 @@ class Home extends Component{
                     </div>
                 </div>
 
-
-                {/*<div className='form'>*/}
-                {/*    <BucketListForm></BucketListForm>*/}
-                {/*</div>*/}
             </div>
         )
     }

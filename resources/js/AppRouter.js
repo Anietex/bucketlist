@@ -8,10 +8,10 @@ import BucketList from "./pages/BucketList";
 let AppRouter = () =>(
     <Router>
         <Header/>
-        <switch>
+        <Switch>
             <Route path='/' exact component={Home}/>
             <Route path='/bucket-list' component={BucketList}/>
-        </switch>
+        </Switch>
     </Router>
 );
 
