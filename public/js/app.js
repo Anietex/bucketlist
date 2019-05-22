@@ -81169,8 +81169,7 @@ function (_Component) {
 
       event.preventDefault();
       this.props.addBucketListItem({
-        name: this.state.name,
-        done: false
+        name: this.state.name
       }).then(function () {
         _this2.setState({
           name: ''
@@ -81227,6 +81226,8 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_confirm_alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-confirm-alert */ "./node_modules/react-confirm-alert/lib/index.js");
+/* harmony import */ var react_confirm_alert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_confirm_alert__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -81244,6 +81245,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -81268,9 +81270,28 @@ function (_Component) {
       this.props.markAsDone(id);
     }
   }, {
+    key: "deleteItem",
+    value: function deleteItem(id) {
+      var _this2 = this;
+
+      Object(react_confirm_alert__WEBPACK_IMPORTED_MODULE_1__["confirmAlert"])({
+        title: 'Confirm Delete',
+        message: 'Are you sure to delete?.',
+        buttons: [{
+          label: 'Yes',
+          onClick: function onClick() {
+            return _this2.props.deleteItem(id);
+          }
+        }, {
+          label: 'No' // onClick: () => alert('Click No')
+
+        }]
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "bucket-lists"
@@ -81291,7 +81312,7 @@ function (_Component) {
           key: item.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           onChange: function onChange(e) {
-            _this2.markAsDone(item.id);
+            _this3.markAsDone(item.id);
           },
           type: "checkbox",
           className: "filled-in"
@@ -81300,6 +81321,9 @@ function (_Component) {
         }, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "btn btn-small green accent-3"
         }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: function onClick() {
+            return _this3.deleteItem(item.id);
+          },
           className: "btn btn-small red accent-3"
         }, "Delete")));
       }))))));
@@ -81785,10 +81809,10 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_BucketListForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/BucketListForm */ "./resources/js/components/BucketListForm.js");
-/* harmony import */ var _components_BucketListTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/BucketListTable */ "./resources/js/components/BucketListTable.js");
-/* harmony import */ var _components_BucketListItemsTable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/BucketListItemsTable */ "./resources/js/components/BucketListItemsTable.js");
-/* harmony import */ var _components_BucketListItemForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/BucketListItemForm */ "./resources/js/components/BucketListItemForm.js");
+/* harmony import */ var _components_BucketListItemsTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/BucketListItemsTable */ "./resources/js/components/BucketListItemsTable.js");
+/* harmony import */ var _components_BucketListItemForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/BucketListItemForm */ "./resources/js/components/BucketListItemForm.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils */ "./resources/js/utils/index.js");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/esm/react-toastify.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -81827,30 +81851,60 @@ function (_Component) {
     _this.state = {
       bucketListsItems: [],
       bucketList: {
-        name: 'Bucket list one'
+        name: ''
       }
     };
+    _this.id = _this.props.match.params.id;
     _this.addBucketListItem = _this.addBucketListItem.bind(_assertThisInitialized(_this));
     _this.markAsDone = _this.markAsDone.bind(_assertThisInitialized(_this));
+    _this.deleteItem = _this.deleteItem.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(BucketListItems, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BucketListItemForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        bucketList: this.state.bucketList,
-        addBucketListItem: this.addBucketListItem
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "table"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BucketListItemsTable__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        bucketListItems: this.state.bucketListsItems,
-        markAsDone: this.markAsDone
-      })));
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getBucketList();
+      this.getBucketListItems();
+    }
+  }, {
+    key: "getBucketList",
+    value: function getBucketList() {
+      var _this2 = this;
+
+      _utils__WEBPACK_IMPORTED_MODULE_3__["http"].get('/bucketlists/' + this.id).then(function (_ref) {
+        var data = _ref.data;
+
+        _this2.setState({
+          bucketList: data.data
+        });
+      });
+    }
+  }, {
+    key: "getBucketListItems",
+    value: function getBucketListItems() {
+      var _this3 = this;
+
+      _utils__WEBPACK_IMPORTED_MODULE_3__["http"].get('/bucketlists/' + this.id + '/items').then(function (_ref2) {
+        var data = _ref2.data;
+
+        _this3.setState({
+          bucketListsItems: data.data
+        });
+      });
+    }
+  }, {
+    key: "deleteItem",
+    value: function deleteItem(id) {
+      var _this4 = this;
+
+      _utils__WEBPACK_IMPORTED_MODULE_3__["http"]["delete"]('bucketlists/' + this.id + '/items/' + id).then(function () {
+        _this4.getBucketListItems();
+
+        react_toastify__WEBPACK_IMPORTED_MODULE_4__["toast"].success("Bucket list item deleted");
+      })["catch"](function (err) {
+        react_toastify__WEBPACK_IMPORTED_MODULE_4__["toast"].error("Something went wrong");
+      });
     }
   }, {
     key: "markAsDone",
@@ -81867,18 +81921,37 @@ function (_Component) {
   }, {
     key: "addBucketListItem",
     value: function addBucketListItem(bucketListItem) {
-      var _this2 = this;
+      var _this5 = this;
 
-      bucketListItem.id = Math.round(1 + Math.random() * 1000);
       return new Promise(function (resolve, reject) {
-        _this2.setState(function (prevState) {
-          return {
-            bucketListsItems: prevState.bucketListsItems.concat(bucketListItem)
-          };
-        }, function () {
+        _utils__WEBPACK_IMPORTED_MODULE_3__["http"].post('/bucketlists/' + _this5.id + '/items', bucketListItem).then(function () {
+          _this5.getBucketListItems();
+
           resolve();
+          react_toastify__WEBPACK_IMPORTED_MODULE_4__["toast"].success("Item added to bucket list");
+        })["catch"](function (err) {
+          reject(err);
+          react_toastify__WEBPACK_IMPORTED_MODULE_4__["toast"].error("Something went wrong");
         });
       });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BucketListItemForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        bucketList: this.state.bucketList,
+        addBucketListItem: this.addBucketListItem
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BucketListItemsTable__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        deleteItem: this.deleteItem,
+        bucketListItems: this.state.bucketListsItems,
+        markAsDone: this.markAsDone
+      })));
     }
   }]);
 

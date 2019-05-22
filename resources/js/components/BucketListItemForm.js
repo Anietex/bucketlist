@@ -22,7 +22,7 @@ class BucketListItemForm extends Component {
 
         this.
         props
-            .addBucketListItem({name:this.state.name,done:false})
+            .addBucketListItem({name:this.state.name})
             .then(()=>{
                 this.setState({name:''})
             });

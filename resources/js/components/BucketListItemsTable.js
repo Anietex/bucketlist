@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {confirmAlert} from "react-confirm-alert";
 
 
 class BucketListItemsTable extends Component{
@@ -10,6 +11,24 @@ class BucketListItemsTable extends Component{
 
     markAsDone(id){
         this.props.markAsDone(id)
+    }
+
+    deleteItem(id){
+
+        confirmAlert({
+            title: 'Confirm Delete',
+            message: 'Are you sure to delete?.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.props.deleteItem(id)
+                },
+                {
+                    label: 'No',
+                    // onClick: () => alert('Click No')
+                }
+            ]
+        });
     }
 
     render() {
@@ -41,7 +60,7 @@ class BucketListItemsTable extends Component{
                                     <td className={item.done?'strike':''}>{item.name}</td>
                                     <td>
                                         <button className='btn btn-small green accent-3'>Edit</button>
-                                        <button className='btn btn-small red accent-3'>Delete</button>
+                                        <button onClick={()=>this.deleteItem(item.id)} className='btn btn-small red accent-3'>Delete</button>
                                     </td>
                                 </tr>
                             ))}

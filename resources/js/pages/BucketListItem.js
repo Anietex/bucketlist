@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
-import BucketListForm from "../components/BucketListForm";
-import BucketListTable from "../components/BucketListTable";
+
 import BucketListItemsTable from "../components/BucketListItemsTable";
 import BucketListItemForm from "../components/BucketListItemForm";
+import {http} from '../utils';
+import {toast} from "react-toastify";
+
 
 class BucketListItems extends Component{
    constructor(props){
@@ -10,29 +12,47 @@ class BucketListItems extends Component{
         this.state = {
             bucketListsItems:[],
             bucketList:{
-                name:'Bucket list one'
+                name:''
             }
         }
 
+        this.id = this.props.match.params.id;
+
         this.addBucketListItem = this.addBucketListItem.bind(this);
         this.markAsDone = this.markAsDone.bind(this)
+       this.deleteItem = this.deleteItem.bind(this)
    }
 
-    render() {
-        return (
-            <div className='container'>
+   componentDidMount() {
+       this.getBucketList();
+       this.getBucketListItems();
+   }
 
-                <div className='form'>
-                    <BucketListItemForm  bucketList={this.state.bucketList}
-                                     addBucketListItem={this.addBucketListItem}/>
-                </div>
+    getBucketList(){
+       http.get('/bucketlists/'+this.id)
+           .then(({data})=>{
+               this.setState({bucketList:data.data})
+           })
+   }
 
-                <div className='table'>
-                    <BucketListItemsTable bucketListItems={this.state.bucketListsItems}
-                                          markAsDone={this.markAsDone}/>
-                </div>
-            </div>
-        )
+   getBucketListItems(){
+        http.get('/bucketlists/'+this.id+'/items')
+            .then(({data})=>{
+                this.setState({bucketListsItems:data.data})
+            })
+   }
+
+
+    deleteItem(id){
+
+        http.delete('bucketlists/'+this.id+'/items/'+id)
+            .then(()=>{
+                this.getBucketListItems();
+                toast.success("Bucket list item deleted");
+            })
+            .catch((err)=>{
+                toast.error("Something went wrong")
+            })
     }
 
     markAsDone(id){
@@ -45,17 +65,36 @@ class BucketListItems extends Component{
         this.setState({bucketListItems:items})
     }
     addBucketListItem(bucketListItem){
-       bucketListItem.id = Math.round( 1+Math.random()*1000);
        return new Promise((resolve,reject)=>{
-
-           this.setState((prevState)=>{
-               return {
-                   bucketListsItems:prevState.bucketListsItems.concat(bucketListItem)
-               }
-           },()=>{
-               resolve();
-           })
+                http.post('/bucketlists/'+this.id+'/items',bucketListItem)
+                    .then(()=>{
+                        this.getBucketListItems();
+                        resolve();
+                        toast.success("Item added to bucket list")
+                    })
+                    .catch((err)=>{
+                        reject(err)
+                        toast.error("Something went wrong")
+                    })
        })
+    }
+
+
+    render() {
+        return (
+            <div className='container'>
+
+                <div className='form'>
+                    <BucketListItemForm  bucketList={this.state.bucketList}
+                                         addBucketListItem={this.addBucketListItem}/>
+                </div>
+
+                <div className='table'>
+                    <BucketListItemsTable deleteItem={this.deleteItem} bucketListItems={this.state.bucketListsItems}
+                                          markAsDone={this.markAsDone}/>
+                </div>
+            </div>
+        )
     }
 }
 
