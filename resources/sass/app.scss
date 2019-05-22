@@ -6,6 +6,8 @@
 
 // Bootstrap
 @import '~materialize-css/sass/materialize';
+@import '~react-toastify/dist/ReactToastify.min.css';
+@import '~react-confirm-alert/src/react-confirm-alert.css';
 
 
 .login-form{
@@ -14,4 +16,18 @@
 
 .strike{
     text-decoration: line-through;
+}
+
+.react-confirm-alert-body{
+    h1{
+        font-size: 20px !important;
+    }
+
+    button:first-child{
+        background: green;
+    }
+
+    button:last-child{
+        background: red;
+    }
 }

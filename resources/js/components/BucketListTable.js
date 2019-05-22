@@ -1,10 +1,31 @@
 import React, {Component} from 'react';
+import {confirmAlert} from "react-confirm-alert";
+import {Link} from "react-router-dom";
 
 
 class BucketListTable extends Component{
 
     constructor(props){
         super(props)
+    }
+
+
+    deleteItem(id){
+
+        confirmAlert({
+            title: 'Confirm Delete',
+            message: 'Are you sure to delete?.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.props.deleteItem(id)
+                },
+                {
+                    label: 'No',
+                    // onClick: () => alert('Click No')
+                }
+            ]
+        });
     }
 
     render() {
@@ -23,13 +44,13 @@ class BucketListTable extends Component{
                                 </tr>
                             </thead>
                             <tbody>
-                            {this.props.bucketLists.map((bucketList,index)=>(
-                                <tr>
+                            { this.props.bucketLists && this.props.bucketLists.items.map((bucketList,index)=>(
+                                <tr key={bucketList.id}>
                                     <td>{index+1}</td>
-                                    <td>{bucketList.name}</td>
+                                    <td><Link to={'/bucketlist/'+bucketList.id}>{bucketList.name}</Link></td>
                                     <td>
-                                        <button className='btn btn-small green accent-3'>Edit</button>
-                                        <button className='btn btn-small red accent-3'>Delete</button>
+                                        <button  className='btn btn-small green accent-3'>Edit</button>
+                                        <button  onClick={(e)=>this.deleteItem(bucketList.id)} className='btn btn-small red accent-3'>Delete</button>
                                     </td>
                                 </tr>
                             ))}
