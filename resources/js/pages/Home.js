@@ -49,7 +49,7 @@ class Home extends Component{
                                     <div className="card-title">Info</div>
                                     <div>
                                         <a className="block" href="#">API Docs</a>
-                                        <p>Email: email@example.com</p>
+                                        <p>Email: admin@test.dev</p>
                                         <p>Password: password</p>
                                     </div>
                                 </div>

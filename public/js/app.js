@@ -81675,15 +81675,17 @@ if (document.getElementById('example')) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 var Header = function Header() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "nav-wrapper container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "#",
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/",
     className: "brand-logo"
-  }, "Logo")));
+  }, "BucketList")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Header);
@@ -82285,7 +82287,7 @@ function (_Component) {
       }, "Info"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "block",
         href: "#"
-      }, "API Docs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Email: email@example.com"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Password: password"))))))));
+      }, "API Docs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Email: admin@test.dev"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Password: password"))))))));
     }
   }]);
 
