@@ -76,11 +76,11 @@ class BucketListItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($bucketListId,$itemId)
     {
 
-        $item = BucketListItem::where('bucket_list_id',request()->bucket_list_id)
-        ->where('id',$id)->first();
+        $item = BucketListItem::where('bucket_list_id',$bucketListId)
+        ->where('id',$itemId)->first();
 
         if(!$item)
             $this->error('Bucket list item does not exist',404);
