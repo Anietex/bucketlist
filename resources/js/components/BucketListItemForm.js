@@ -34,7 +34,7 @@ class BucketListItemForm extends Component {
         return (
             <div className='card'>
                 <div className='card-content'>
-                    <span className='card-title'>Add new  to   {this.props.bucketList.name}</span>
+                    <span className='card-title'>Add new  items to:   {this.props.bucketList.name}</span>
                     <form onSubmit={this.addBucketListItem}>
                         <div className='row'>
                             <div className='col l10 s12'>

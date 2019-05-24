@@ -3,6 +3,7 @@ import BucketListForm from "../components/BucketListForm";
 import BucketListTable from "../components/BucketListTable";
 import {http } from '../utils'
 import {toast} from "react-toastify";
+import EditBucketListModal from "../components/EditBucketListModal";
 
 class BucketList extends Component{
    constructor(props){
@@ -13,6 +14,9 @@ class BucketList extends Component{
 
         this.addBucketList = this.addBucketList.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
+        this.editModal = React.createRef();
+        this.editBucketList = this.editBucketList.bind(this)
+       this.updateBucketList = this.updateBucketList.bind(this)
    }
    componentDidMount() {
        this.getBucketList();
@@ -34,7 +38,28 @@ class BucketList extends Component{
            })
    }
 
+   editBucketList(bucketList){
+       this.editModal.current.open(bucketList);
+   }
 
+   updateBucketList(bucketList){
+       return new Promise((resolve, reject)=>{
+           console.log(bucketList);
+
+           let data = {
+               name:bucketList.name
+           }
+           http.put('bucketlists/'+bucketList.id,data)
+               .then(()=>{
+                   toast.success("BucketList Updated");
+                   this.getBucketList();
+                   resolve()
+               }).catch(()=>{
+                   reject()
+                   toast.error('Oops something went wrong')
+           })
+       })
+   }
 
 
     addBucketList(bucketList){
@@ -42,18 +67,11 @@ class BucketList extends Component{
             http.post('/bucketlists',bucketList)
                 .then(({data})=>{
                     this.getBucketList();
-                    // this.setState((prevState)=>{
-                    //     return {
-                    //         bucketLists:prevState.bucketLists.concat(data.data)
-                    //     }
-                    // },()=>{
                         resolve();
                         toast.success("Bucket item added")
-                    // })
                 }).catch((err)=>{
                     reject(err);
             });
-
 
        })
     }
@@ -67,8 +85,14 @@ class BucketList extends Component{
                 </div>
 
                 <div className='table'>
-                    <BucketListTable deleteItem={this.deleteItem} bucketLists={this.state.bucketLists}/>
+                    <BucketListTable deleteItem={this.deleteItem}
+                                     editBucketList={this.editBucketList}
+                                     bucketLists={this.state.bucketLists}/>
                 </div>
+
+                <EditBucketListModal submit={this.updateBucketList}
+                                     modalTitle='Edit Bucket list'
+                                     ref={this.editModal}/>
             </div>
         )
     }

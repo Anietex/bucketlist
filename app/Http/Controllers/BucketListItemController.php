@@ -96,14 +96,15 @@ class BucketListItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $bucketListId, $id)
     {
 
         Validator::make($request->all(),[
             'done'=>'boolean'
         ])->validate();
 
-        $item = BucketListItem::where('bucket_list_id',request()->bucket_list_id)
+
+        $item = BucketListItem::where('bucket_list_id',$bucketListId)
             ->where('id',$id)->first();
 
         if(!$item)
@@ -127,10 +128,14 @@ class BucketListItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($bucketListId,$itemId)
     {
-        $item = BucketListItem::where('bucket_list_id',request()->bucket_list_id)
-            ->where('id',$id)->first();
+
+
+        $item = BucketListItem::where('bucket_list_id',$bucketListId)
+            ->where('id',$itemId)->first();
+
+
 
         if(!$item)
             return $this->error("Bucket list item does not exist",404);

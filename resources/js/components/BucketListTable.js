@@ -49,7 +49,7 @@ class BucketListTable extends Component{
                                     <td>{index+1}</td>
                                     <td><Link to={'/bucketlist/'+bucketList.id}>{bucketList.name}</Link></td>
                                     <td>
-                                        <button  className='btn btn-small green accent-3'>Edit</button>
+                                        <button onClick={()=>{this.props.editBucketList(bucketList)}}  className='btn btn-small green accent-3'>Edit</button>
                                         <button  onClick={(e)=>this.deleteItem(bucketList.id)} className='btn btn-small red accent-3'>Delete</button>
                                     </td>
                                 </tr>

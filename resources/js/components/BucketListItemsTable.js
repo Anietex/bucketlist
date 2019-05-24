@@ -52,14 +52,14 @@ class BucketListItemsTable extends Component{
                                     <td>
                                         <p>
                                             <label>
-                                                <input onChange={(e)=>{this.markAsDone(item.id)}}  type='checkbox' className='filled-in'/>
+                                                <input onChange={(e)=>{this.markAsDone(item.id)}}  checked={item.done} type='checkbox' className='filled-in'/>
                                                 <span></span>
                                             </label>
                                         </p>
                                     </td>
                                     <td className={item.done?'strike':''}>{item.name}</td>
                                     <td>
-                                        <button className='btn btn-small green accent-3'>Edit</button>
+                                        <button onClick={()=>{this.props.editBucketList(item)}} className='btn btn-small green accent-3'>Edit</button>
                                         <button onClick={()=>this.deleteItem(item.id)} className='btn btn-small red accent-3'>Delete</button>
                                     </td>
                                 </tr>

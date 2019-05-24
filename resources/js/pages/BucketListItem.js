@@ -4,6 +4,8 @@ import BucketListItemsTable from "../components/BucketListItemsTable";
 import BucketListItemForm from "../components/BucketListItemForm";
 import {http} from '../utils';
 import {toast} from "react-toastify";
+import EditBucketListModal from "../components/EditBucketListModal";
+import BucketListTable from "../components/BucketListTable";
 
 
 class BucketListItems extends Component{
@@ -19,8 +21,12 @@ class BucketListItems extends Component{
         this.id = this.props.match.params.id;
 
         this.addBucketListItem = this.addBucketListItem.bind(this);
-        this.markAsDone = this.markAsDone.bind(this)
-       this.deleteItem = this.deleteItem.bind(this)
+        this.markAsDone = this.markAsDone.bind(this);
+       this.deleteItem = this.deleteItem.bind(this);
+
+       this.editModal = React.createRef();
+       this.editBucketList = this.editBucketList.bind(this)
+       this.updateBucketList = this.updateBucketList.bind(this)
    }
 
    componentDidMount() {
@@ -56,13 +62,37 @@ class BucketListItems extends Component{
     }
 
     markAsDone(id){
-        let items = this.state.bucketListsItems;
-        let index = this.state.bucketListsItems.findIndex((item)=>{
-            return item.id == id;
+
+
+      //  let items = this.state.bucketListsItems;
+        let item = this.state.bucketListsItems.find((item)=>{
+            return item.id === id;
         });
 
-        items[index].done = !items[index].done;
-        this.setState({bucketListItems:items})
+        return new Promise((resolve, reject)=>{
+
+            let data = {
+                done:!item.done
+            }
+            http.put('bucketlists/'+this.id+'/items/'+item.id,data)
+                .then(()=>{
+                    toast.success("Item Updated");
+                    this.getBucketListItems();
+                    resolve()
+                }).catch(()=>{
+                reject()
+                toast.error('Oops something went wrong')
+            })
+        })
+
+
+
+
+
+
+
+
+
     }
     addBucketListItem(bucketListItem){
        return new Promise((resolve,reject)=>{
@@ -79,6 +109,30 @@ class BucketListItems extends Component{
        })
     }
 
+    editBucketList(bucketList){
+        this.editModal.current.open(bucketList);
+    }
+
+    updateBucketList(bucketList){
+        return new Promise((resolve, reject)=>{
+            console.log(bucketList);
+
+            let data = {
+                name:bucketList.name
+            }
+
+            http.put('bucketlists/'+this.id+'/items/'+bucketList.id,data)
+                .then(()=>{
+                    toast.success("BucketList Updated");
+                    this.getBucketList();
+                    resolve()
+                }).catch(()=>{
+                reject()
+                toast.error('Oops something went wrong')
+            })
+        })
+    }
+
 
     render() {
         return (
@@ -90,9 +144,15 @@ class BucketListItems extends Component{
                 </div>
 
                 <div className='table'>
-                    <BucketListItemsTable deleteItem={this.deleteItem} bucketListItems={this.state.bucketListsItems}
+                    <BucketListItemsTable deleteItem={this.deleteItem}
+                                          bucketListItems={this.state.bucketListsItems}
+                                          editBucketList={this.editBucketList}
                                           markAsDone={this.markAsDone}/>
                 </div>
+
+                <EditBucketListModal submit={this.updateBucketList}
+                                     modalTitle='Edit Bucket list item'
+                                     ref={this.editModal}/>
             </div>
         )
     }

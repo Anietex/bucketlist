@@ -14,6 +14,7 @@ class BucketListItemTransformer extends TransformerAbstract
 
         return [
             "id"=>$item->id,
+            "bucket_list_id"=>$item->bucketList->id,
             "bucket_list"=>$item->bucketList->name,
             "name"=>$item->name,
             "done"=>(boolean)$item->done,
