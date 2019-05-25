@@ -48,7 +48,7 @@ class Home extends Component{
                                 <div className="card-content">
                                     <div className="card-title">Info</div>
                                     <div>
-                                        <a className="block" href="#">API Docs</a>
+                                        <a className="block" target='_blank' href="https://documenter.getpostman.com/view/6340830/S1TR5Kpb?version=latest ">API Docs</a>
                                         <p>Email: admin@test.dev</p>
                                         <p>Password: password</p>
                                     </div>
