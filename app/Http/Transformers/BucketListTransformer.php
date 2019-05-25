@@ -8,7 +8,7 @@ namespace App\Http\Transformers;
 use App\Models\BucketList;
 use League\Fractal\TransformerAbstract;
 
-class BucketlistTransformer extends TransformerAbstract
+class BucketListTransformer extends TransformerAbstract
 {
 
     public function transform(BucketList $bucketlist){
